@@ -1,0 +1,19 @@
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: 'http://localhost:3000/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Add interceptors for error handling if needed
+api.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    console.error('API Error:', error.response?.data?.message || error.message);
+    return Promise.reject(error);
+  }
+);
+
+export default api;
